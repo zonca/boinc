@@ -23,10 +23,11 @@
 #include "config.h"
 #include "util.h"
 #include "boinc_api.h"
+#include "str_util.h"
 #ifdef GRAPHICS
 #include "graphics_api.h"
 #endif
-#include "boinc_zip.h"
+//#include "boinc_zip.h"
 
 // helper class that makes a C-string from a character array and length,
 // automatically deleted on destruction.
@@ -75,24 +76,28 @@ void boinc_finish_graphics_(){
 }
 #endif
 
-void boinc_is_standalone_(int* result) {
-    *result = boinc_is_standalone();
+//void boinc_is_standalone_(int* result) {
+//    *result = boinc_is_standalone();
+//}
+
+int boinc_is_standalone_() {
+    return boinc_is_standalone();
 }
 
-void boincrf_(const char* s, char* t, int s_len, int t_len) {
-    STRING_FROM_FORTRAN sff(s, s_len);
+void boincrf_(const char* s, char* t, int * s_len, int * t_len) {
+    STRING_FROM_FORTRAN sff(s, *s_len);
     sff.strip_whitespace();
-    boinc_resolve_filename(sff.c_str(), t, t_len);
-    string_to_fortran(t, t_len);
+    boinc_resolve_filename(sff.c_str(), t, *t_len);
+    string_to_fortran(t, *t_len);
 }
 
 void boinc_parse_init_data_file_() {
     boinc_parse_init_data_file();
 }
 
-void boinc_write_init_data_file_() {
-    boinc_write_init_data_file();
-}
+//void boinc_write_init_data_file_() {
+//    boinc_write_init_data_file();
+//}
 
 void boinc_time_to_checkpoint_(int* result) {
     *result = boinc_time_to_checkpoint();
@@ -114,17 +119,17 @@ void boinc_calling_thread_cpu_time_(double* d) {
     boinc_calling_thread_cpu_time(*d);
 }
 
-void boinc_zip_(int* zipmode, const char* zipfile,
-    const char* path, int zipfile_len, int path_len
-) {
-    //zipmode = 0 to unzip or 1 to zip. FORTRAN variable of type INTEGER.
-    //zipfile, path = FORTRAN variables of type CHARACTER.
-    STRING_FROM_FORTRAN zipfileff(zipfile, zipfile_len);
-    STRING_FROM_FORTRAN pathff(path, path_len);
-    zipfileff.strip_whitespace();
-    pathff.strip_whitespace();
-    boinc_zip(*zipmode,zipfileff.c_str(),pathff.c_str());
-} 
+//void boinc_zip_(int* zipmode, const char* zipfile,
+//    const char* path, int zipfile_len, int path_len
+//) {
+//    //zipmode = 0 to unzip or 1 to zip. FORTRAN variable of type INTEGER.
+//    //zipfile, path = FORTRAN variables of type CHARACTER.
+//    STRING_FROM_FORTRAN zipfileff(zipfile, zipfile_len);
+//    STRING_FROM_FORTRAN pathff(path, path_len);
+//    zipfileff.strip_whitespace();
+//    pathff.strip_whitespace();
+//    boinc_zip(*zipmode,zipfileff.c_str(),pathff.c_str());
+//} 
 
 }   // extern "C"
 

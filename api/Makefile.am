@@ -8,6 +8,7 @@ if ENABLE_LIBRARIES
 # library for both main and graphics apps
 api_files= \
     boinc_api.cpp \
+    boinc_api_fortran.cpp \
     graphics2_util.cpp \
     reduce_main.cpp
 
