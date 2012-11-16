@@ -20,7 +20,12 @@
 // Define this symbol (here or in Makefile) if you want graphics functions
 //#define GRAPHICS
 
+#ifdef WIN32
 #include "../win_build/config.h"
+#else
+#include "config.h"
+#endif
+
 #include "util.h"
 #include "boinc_api.h"
 #include "str_util.h"
