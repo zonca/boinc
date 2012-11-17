@@ -20,9 +20,7 @@
 // Define this symbol (here or in Makefile) if you want graphics functions
 //#define GRAPHICS
 
-#ifdef WIN32
-#include "../win_build/config.h"
-#else
+#if !(defined WIN32 || defined OSX)
 #include "config.h"
 #endif
 
